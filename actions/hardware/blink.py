@@ -12,4 +12,7 @@ def let_blink(duration = 5):
         led.off()
         time.sleep(0.5)
         duration -= 1
+        print('blink')
+    
+    print('Done blinking ;)')
     

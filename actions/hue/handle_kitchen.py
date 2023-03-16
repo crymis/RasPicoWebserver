@@ -1,3 +1,11 @@
+# ---- Philips Hue Api ----
+# Getting started: https://developers.meethue.com/develop/get-started-2/ 
+# Verify current Ip-address of Hue Bridge in the app settings (or adjust if needed).
+# Info: Maybe turn off DHCP in order to not need to switch or set up a DNS
+# Get all lights: GET https://192.168.x.y/api/[USER]/lights
+# Get specfic light: GET https://192.168.x.y/api/[USER]/lights/{id}
+# Set specfic light state: PUT https://192.168.x.y/api/[USER]/lights/{id}/state
+
 from secrets import secrets
 import urequests
 
