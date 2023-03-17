@@ -15,4 +15,3 @@ def let_blink(duration = 5):
         print('blink')
     
     print('Done blinking ;)')
-    

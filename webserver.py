@@ -17,6 +17,8 @@ def start_webserver(ip):
     <body>
     <h1 align="center">Raspberry Pi Pico W</h1>
     <p align="center">Verbindung mit %s</p>
+    
+    <pre align="center">Made with ❤ by Dan © 2023</pre>
     </body>
     </html>"""
 
@@ -69,6 +71,8 @@ def start_webserver(ip):
         except OSError as e:
            break
         except (KeyboardInterrupt):
+            break
+        except Exception as e:
             break
         
     # Close the connection
