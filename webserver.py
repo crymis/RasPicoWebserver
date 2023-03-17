@@ -29,6 +29,7 @@ def start_webserver(ip):
     
     # Start the server on the Raspberry itself on port
     server_address = socket.getaddrinfo(IP_ADDRESS, PORT)[0][-1]
+    server_connection = None
     
     # Create a TCP/IP socket
     server = socket.socket()
@@ -44,6 +45,7 @@ def start_webserver(ip):
         try:
             # Wait for a connection
             connection, client_address = server.accept()
+            server_connection = connection
             print('HTTP-Request von Client', client_address)
             # Receive the HTTP request
             request = connection.recv(1024).decode()
@@ -70,7 +72,11 @@ def start_webserver(ip):
             break
         
     # Close the connection
-    try: connection.close()
-    except NameError: pass
+    try:
+        server_connection.close()
+    except NameError:
+        print('NameError')
+        pass
     server.close()
     print('Server stopped!')
+

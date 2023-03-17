@@ -9,4 +9,13 @@ def handle_path(request):
     if request.startswith('GET /toggle/kitchen'):
         handle_kitchen_toggle()
     if request.startswith('GET /blink'):
-        let_blink(8)
+        last_slash_position = request.rfind('/')
+        if last_slash_position == -1:
+            last_slash_position = request.find('/')
+        duration_string = request[request[last_slash_position] + 1:]
+        duration = int(duration_string)
+        print('duration from path', str(duration))
+        if duration:
+            let_blink(duration)
+        else:
+            let_blink(8)
