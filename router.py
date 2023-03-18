@@ -4,13 +4,13 @@
 from actions.hue.handle_kitchen import handle_kitchen_toggle
 from actions.hardware.blink import let_blink
 
-def handle_path(request):
+def handle_path(path):
     # handles the different paths to the server
-    if request.startswith('GET /toggle/kitchen'):
+    if path.startswith('/toggle/kitchen'):
         handle_kitchen_toggle()
-    if request.startswith('GET /blink'):
-        last_part = request.split('/',3)[2] # request looks like 'GET /blink/123 HTTP/...'
-        duration_string = last_part.split(' ', 1)[0] # last_part should look like '123 HTTP/...'
+        
+    elif path.startswith('/blink'):
+        duration_string = path.split('/')[2] # path looks like '/blink/123'
         duration = 0
         try:
             duration = int(duration_string)
@@ -21,5 +21,5 @@ def handle_path(request):
         else:
             let_blink(8)
     else:
-        print('There is nothing to do here')
+        print(f'No matching path found for "{path}"')
 

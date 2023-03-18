@@ -49,11 +49,11 @@ def start_webserver(ip):
             connection, client_address = server.accept()
             server_connection = connection
             print('HTTP-Request von Client', client_address)
-            # Receive the HTTP request
-            request = connection.recv(1024).decode()
-            # print HTTP-Request
-            print()
-            # print('Request:', request)
+            # Receive the HTTP request and get path from it
+            request = connection.recv(1024)
+            request_str = str(request, 'utf-8')
+            path = request_str.split()[1] # split incoming request by whitespace. Example: GET /blink/1 HTTP/1.1 ...
+            print(f'Requested path: {path}')
             
             # send back HTTP-Response as HTML
             response = 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n'
@@ -66,7 +66,7 @@ def start_webserver(ip):
             connection.close()
             
             # Router to handle different paths
-            handle_path(request)
+            handle_path(path)
     
         except OSError as e:
            break
@@ -78,6 +78,7 @@ def start_webserver(ip):
     # Close the connection
     try:
         server_connection.close()
+        print('Socket connection closed.')
     except NameError:
         print('NameError')
         pass

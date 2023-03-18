@@ -21,15 +21,12 @@ def handle_kitchen_toggle():
 
     kitchen_res = None
     try:
-        print('call kitchen state')
         kitchen_res = urequests.get(hue_get_kitchen_url, headers = headers).json()
     except ValueError:
-        print('Error: Response body is not valid JSON')
+        print('Error: Response body of GET light state is not valid JSON')
     except Exception as e:
         raise Exception('Error when trying to get light state: ', e)
-        
-    print('Response of kitchen state', kitchen_res)
-    
+            
     if kitchen_res['state']['on'] == False:
         try:
             urequests.put(hue_set_kitchen_url, headers = headers, data = '{"on": true}')
