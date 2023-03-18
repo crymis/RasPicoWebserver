@@ -10,11 +10,13 @@ def handle_path(path):
         handle_kitchen_toggle()
         
     elif path.startswith('/blink'):
-        duration_string = path.split('/')[2] # path looks like '/blink/123'
         duration = 0
         try:
+            duration_string = path.split('/')[2] # path looks like '/blink/123'
             duration = int(duration_string)
         except ValueError:
+            pass
+        except Exception as e:
             pass
         if duration > 0:
             let_blink(duration)
@@ -22,4 +24,3 @@ def handle_path(path):
             let_blink(8)
     else:
         print(f'No matching path found for "{path}"')
-
